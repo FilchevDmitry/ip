@@ -1,14 +1,30 @@
 #include <iostream>
 bool numCheck(std::string ip)
 {
-    for (int i = 0; i < ip.length(); ++i)
+    if(ip.length()==3)
     {
-        if(ip[i]<'0' && ip[i]<'9')
+        if(ip[0]>='2')
+            if(ip[1]>='5')
+                if(ip[2]>'5')
+                    return false;
+        if(ip[0]=='0')
             return false;
         else
             return true;
     }
-
+    if(ip.length()==2)
+    {
+        if (ip[0]=='0')
+            return false;
+        else
+            return true;
+    }
+    else {
+        if (ip[0]>='0' && ip[0]<='9')
+            return true;
+        else
+            return false;
+    }
 }
 bool testIp(std::string ip) {
     int temp = 0;
@@ -17,11 +33,12 @@ bool testIp(std::string ip) {
     std::string ip3;
     std::string ip4;
     for (int i = 0; i < ip.length(); i++) {
-        if (ip[i] == '.' && ip[i + 1] != '.')
+        if (ip[i] == '.' && ip[i + 1] != '.'){
             temp++;
-        else {
-            return 0;
+            i++;
         }
+        if(ip[i] == '.' && ip[i + 1] == '.')
+            return false;
         if (temp == 0)
             ip1 += ip[i];
         if (temp == 1)
@@ -30,7 +47,8 @@ bool testIp(std::string ip) {
             ip3 += ip[i];
         if (temp == 3)
             ip4 += ip[i];
-
+        if(temp>3)
+            return false;
     }
     bool num1=numCheck(ip1);
     bool num2= numCheck(ip2);
